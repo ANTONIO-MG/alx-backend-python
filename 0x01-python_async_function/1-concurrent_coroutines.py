@@ -8,10 +8,11 @@ n asynchronous tasks with a random delay.
 
 import asyncio
 import random
+from typing import List
 wait_random = __import__('0-basic_async_syntax').wait_random
 
 
-async def wait_n(n, max_delay):
+async def wait_n(n: int, max_delay: int) -> List[float]:
     """
     Executes n asynchronous tasks concurrently with random delays.
 
@@ -23,16 +24,17 @@ async def wait_n(n, max_delay):
         max_delay (int): The maximum delay for each task in seconds.
 
     Returns:
-        list: A list of floats representing the delay of each completed task.
+        List[float]: A list of floats representing the delay of each
+        completed task.
     """
 
-    tasks = []  # List to store the created tasks
-    results = []  # List to store the results of the completed tasks
-    loop = 0  # Initialize the loop counter
+    tasks: List[asyncio.Task] = []  # List to store the created tasks
+    results: List[float] = []  # List to store the resultss
+    loop: int = 0  # Initialize the loop counter
 
     # Create n tasks with random delays
     while loop < n:
-        delay = random.uniform(0.0, max_delay)
+        delay: float = random.uniform(0.0, max_delay)
         tasks.append(asyncio.create_task(wait_random(delay)))
         loop += 1
 

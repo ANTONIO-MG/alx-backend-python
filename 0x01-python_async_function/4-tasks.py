@@ -8,11 +8,11 @@ tasks concurrently and collects their results as they complete.
 """
 
 import asyncio
+from typing import List
 task_wait_random = __import__('3-tasks').task_wait_random
 
 
-# Import task_wait_random from the previous task
-async def task_wait_n(n, max_delay):
+async def task_wait_n(n: int, max_delay: int) -> List[float]:
     """
     Executes n tasks concurrently with a maximum delay.
 
@@ -21,20 +21,21 @@ async def task_wait_n(n, max_delay):
         max_delay (int): The maximum delay for each task in seconds.
 
     Returns:
-        list: A list of floats representing the delay of each completed task.
+        List[float]: A list of floats representing the delay of each
+        completed task.
     """
 
-    tasks = []  # List to store the created tasks
-    results = []  # List to store the results of the completed tasks
+    tasks: List[asyncio.Task] = []  # List to store the created tasks
+    results: List[float] = []  # List to store the results
 
     # Create n tasks
     for _ in range(n):
-        task = (task_wait_random(max_delay))
+        task: asyncio.Task = task_wait_random(max_delay)
         tasks.append(task)
 
     # Collect the results as they complete using list comprehension
     for task in asyncio.as_completed(tasks):
-        result = await task
+        result: float = await task
         results.append(result)
 
     return results

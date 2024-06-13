@@ -8,24 +8,25 @@ for a random delay and then returns the delay duration.
 
 import asyncio
 import random
+from typing import Optional
 
 
-async def wait_random(max_delay=10):
+async def wait_random(max_delay: int = 10) -> float:
     """
     Waits for a random delay up to max_delay seconds and returns
     the delay duration.
 
     This coroutine generates a random float between 0 and max_delay,
-    waits for that
-    duration using asyncio.sleep, and then returns the delay.
+    waits for that duration using asyncio.sleep, and then returns the
+    delay.
 
     Args:
         max_delay (int, optional): The maximum delay in seconds.
-        Defaults to 10.
+            Defaults to 10.
 
     Returns:
         float: The actual delay duration.
     """
-    delay = random.uniform(0.0, max_delay)  # Generate a random delay
+    delay: float = random.uniform(0.0, max_delay)  # Generate a random delay
     await asyncio.sleep(delay)  # Wait for the delay duration
-    return float(delay)  # Return the delay duration
+    return delay  # Return the delay duration
